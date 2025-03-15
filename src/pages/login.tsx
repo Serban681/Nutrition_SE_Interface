@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import { TextInput } from "../components/TextInput"
 import { Button, GoogleButton } from "../components/Button"
 import { useNavigate } from "react-router"
@@ -12,19 +12,29 @@ export default function Login () {
     const googleProvider = new GoogleAuthProvider()
     const navigate = useNavigate();
 
-    const submit = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-            console.log(userCredential)
-            navigate('/')
-        })
-        .catch(err => console.log(err))
+    const loginOrRegisterWithEmailAndPassword = async () => {
+        signInWithEmailAndPassword(auth, email, password)
+            .then((result) => {
+                localStorage.setItem('user', JSON.stringify(result.user))
+                navigate('/')
+            })
+            .catch(error => {
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((result) => {
+                        localStorage.setItem('user', JSON.stringify(result.user))
+                        navigate('/')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            })
+        
     }
 
     const googleSignIn = () => {
         signInWithPopup(auth, googleProvider)
             .then((result) => {
-                console.log(result)
+                localStorage.setItem('user', JSON.stringify(result.user))
                 navigate('/')
             }).catch((error) => {
                 console.log(error)
@@ -44,7 +54,7 @@ export default function Login () {
                     
                     <TextInput extraStyles="mt-1" name="Password" value={password} onValueChange={value => setPassword(value)} typePassword={true} />            
                 </div>
-                <Button extraStyles="mt-3" name="Submit" onClick={submit}></Button>
+                <Button extraStyles="mt-3" name="Submit" onClick={loginOrRegisterWithEmailAndPassword}></Button>
             </div>
         </div>
     )

@@ -1,14 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@200..800&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
 @theme {
     --font-Karla: 'Karla', sans-serif;
+    --font-Lobster: 'Lobster Two', sans-serif;
     --color-green-light: #E4F1AC;
     --color-green: #A7D477;
     --color-red-light: #FF748B;
     --color-red: #F72C5B;
-}
-
-* {
-    font-family: var(--font-Karla);
+    --color-black: #1C1C1C;
 }

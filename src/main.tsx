@@ -18,21 +18,21 @@ const firebaseConfig = {
   measurementId: "G-WQ708F08WK"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 const auth = getAuth(app)
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<App />} />
-      </Routes>
-    </BrowserRouter>
-  </StrictMode>,
+  <div className='text-black font-Karla'>
+    <StrictMode>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<App />} />'        
+        </Routes>
+      </BrowserRouter>
+    </StrictMode>
+  </div>
 )
 
 export { auth }
