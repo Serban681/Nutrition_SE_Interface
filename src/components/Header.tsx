@@ -1,7 +1,7 @@
-import { ReactSVG } from "react-svg"
 import account_icon from '../assets/account_icon.png'
 import { useNavigate } from "react-router"
-import { useEffect, useState } from "react"
+import { useProfileBox } from '../context/ProfileBoxContextProvider'
+import useGetUser from '../hooks/useGetUser'
 
 export const Header = () => {
     return (
@@ -16,19 +16,24 @@ export const Header = () => {
 }
 
 const UserBtn = () => {
-    const user = !!localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null
+    const { toggleIsOpen } = useProfileBox()
+
+    const { user, userInformation } = useGetUser()
+    // const user = !!localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null
 
     const navigate = useNavigate();
 
     return (
         <div>
-            { user === null ?
+            { !!!user ?
                 <img onClick={() => navigate('/login')} src={account_icon} className="w-8 hover:cursor-pointer" />
                 :
-                <div onClick={() => {
-                    localStorage.removeItem('user')
-                    window.location.reload()
-                }} className="w-8 h-8 rounded-full bg-green hover:cursor-pointer"></div>
+                <img className='w-8 h-8 rounded-full hover:cursor-pointer' src={user.photoURL!}
+                    onClick={() => toggleIsOpen()}
+                />
+                // <div onClick={() => {
+                //     toggleIsOpen()
+                // }} className="w-8 h-8 rounded-full bg-green hover:cursor-pointer"></div>
             }
         </div>
     )

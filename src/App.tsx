@@ -1,50 +1,29 @@
 import './index.css'
 import { Header } from './components/Header';
+import { ImageApproximator } from './components/ImageApproximator';
 import { useState } from 'react';
-import { FileUploader } from 'react-drag-drop-files';
-import { Button } from './components/Button';
-
-type Ingredient = {
-  protein?: number;
-  fats?: number;
-  calories?: number;
-  carbs?: number;
-  grams: number;
-  name: string;
-};
-
-type Meal = {
-  ingredients: Record<string, Ingredient>;
-  total_meal: {
-    protein: number;
-    fats: number;
-    calories: number;
-    carbs: number;
-    grams: number;
-  };
-};
+import { ReactSVG } from 'react-svg';
+import arrow_back from "./assets/arrow_back.svg"
+import arrow_forward from "./assets/arrow_forward.svg"
+import { NutritionalRecommender } from './components/NutritionalRecommender';
 
 function App() {
-  const [mealNutrients, setMealNutrients] = useState<Meal | null>();
+  const NO_OF_SERVICES = 2
 
-  const [image, setImage] = useState<File | null>();
+  const [service, setService] = useState(2)
 
-  const uploadFile = (file: File) => {
-    setImage(file)
+  const nextService = () => {
+    if(service == NO_OF_SERVICES)
+      setService(1)
+    else
+      setService(service + 1)
   }
 
-  const fileTypes = ["JPEG", "JPG", "PNG"]
-
-  const getNutrientsFromMeal = () => {
-    const formData = new FormData()
-    formData.append('file', image!)
-
-    fetch(import.meta.env.VITE_API_URL + '/upload', {
-      method: 'POST',
-      body: formData 
-    })
-      .then(async response => setMealNutrients(await response.json()))
-      .catch(err => console.log(err))
+  const prevService = () => {
+    if(service == 1)
+      setService(NO_OF_SERVICES)
+    else
+      setService(service - 1)
   }
 
   return (
@@ -52,50 +31,22 @@ function App() {
       <Header />
       
       <div className='mt-14 flex justify-center items-center flex-col'>
-        <FileUploader
-          multiple={false}
-          handleChange={uploadFile}
-          name="file"
-          types={fileTypes}
-        />
+        { service === 1 && <ImageApproximator/> }
 
-        <p className='mt-3'>{!!image ? `File name: ${image.name}` : "No files uploaded yet!"}</p>
+        { service === 2 && <NutritionalRecommender/> }
+      </div>
       
-        {!!image && <Button onClick={getNutrientsFromMeal} name='View Nutritional Values'></Button>}
 
-        { mealNutrients && <>
-          <div className='mt-4'>
-            <p className='text-2xl font-bold mb-2'>Total meal content:</p>
-            <p><span className='font-bold'>Protein:</span> {mealNutrients.total_meal.protein}</p>
-            <p><span className='font-bold'>Fats:</span> {mealNutrients.total_meal.fats}</p>
-            <p><span className='font-bold'>Calories:</span> {mealNutrients.total_meal.calories}</p>
-            <p><span className='font-bold'>Carbs:</span> {mealNutrients.total_meal.carbs}</p>
-            <p><span className='font-bold'>Grams:</span> {mealNutrients.total_meal.grams}</p>
-
-            <p className='text-xl font-bold my-2'>Ingredients:</p>
-            { 
-              Object.values(mealNutrients.ingredients).map(ingredient => <IngredientComponent key={ingredient.name} ingredient={ingredient} />)
-            }
-          </div>
-          </>
-        }
-        
+      <div className='mt-10 flex flex-row justify-center w-full'>
+        <div className='flex'>
+          <ReactSVG src={arrow_back} onClick={prevService} className='w-7 cursor-pointer' />
+          <ReactSVG src={arrow_forward} onClick={nextService} className='w-7 cursor-pointer' />
+        </div>
       </div>
     </>
   )
 }
 
-const IngredientComponent = ({ingredient}: {ingredient: Ingredient}) => {
-  return (
-    <div className='border-2 p-2 rounded-2xl mb-4'>
-      <p><span className='font-bold'>Name:</span> {ingredient.name}</p>
-      <p><span className='font-bold'>Protein:</span> {ingredient.protein}</p>
-      <p><span className='font-bold'>Fats:</span> {ingredient.fats}</p>
-      <p><span className='font-bold'>Calories:</span> {ingredient.calories}</p>
-      <p><span className='font-bold'>Carbs:</span> {ingredient.carbs}</p>
-      <p><span className='font-bold'>Grams:</span> {ingredient.grams}</p>
-    </div>
-  )
-}
+
 
 export default App

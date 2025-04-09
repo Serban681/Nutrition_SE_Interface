@@ -6,61 +6,60 @@
 // Status 200
 
 // form data multipart - tipul imaginii
-{
-    "ingredients": {
-      "Burger bun, toasted, top": {
-        "protein": 9.68,
-        "fats": 3.24,
-        "calories": 262,
-        "carbs": 48.7,
-        "grams": 40,
-        "name": "Burger bun, toasted"
-        },
-        "Burger bun, toasted, bottom": {
-            "protein": 9.68,
-            "fats": 3.24,
-            "calories": 262,
-            "carbs": 48.7,
-            "grams": 40,
-            "name": "Burger bun, toasted"
-        },
-        "Beef patty, cooked, grilled": {
-            "fats": 18.18,
-            "protein": 25.45,
-            "calories": 272,
-            "carbs": 0,
-            "grams": 150,
-            "name": "Beef patty, cooked"
-        },
-        "Onion, caramelized, for sandwich": {
-            "calories": 38,
-            "protein": 0.86,
-            "fats": 0.08,
-            "carbs": 8.46,
-            "grams": 30,
-            "name": "Onion, caramelized"
-        },
-        "Lettuce, fresh, leaf, for sandwich": {
-            "protein": 0.92,
-            "carbs": 3.69,
-            "fats": 0.1,
-            "calories": 20,
-            "grams": 20,
-            "name": "Lettuce, fresh"
-        },
-        "Mayonnaise, creamy, for spread": {
-            "carbs": 22.7,
-            "protein": 23.99,
-            "fats": 49.43,
-            "grams": 15,
-            "name": "Mayonnaise, creamy"
-        }
+"activity_factors": {
+      "sedentary": 1.2,
+      "lightly_active": 1.375,
+      "moderately_active": 1.55,
+      "very_active": 1.725,
+      "extra_active": 1.9
     },
-    "total_meal": {
-      "protein": 70.58,
-      "fats": 74.27,
-      "calories": 854,
-      "carbs": 132.25,
-      "grams": 295
-    }
+ "goals": {
+      "Weight Loss": {
+        "tdee_adjustment": -500,
+        "protein_g_per_kg": 2.25,
+        "carbs_percentage": 0.40,
+        "fats_percentage": 0.25
+      },
+      "Maintenance": {
+        "tdee_adjustment": 0,
+        "protein_g_per_kg": 1.6,
+        "carbs_percentage": 0.475,
+        "fats_percentage": 0.275
+      },
+      "Recomposition": {
+        "tdee_adjustment": 0,
+        "protein_g_per_kg": 2.2,
+        "carbs_percentage": 0.35,
+        "fats_percentage": 0.25
+      },
+      "Muscle Gain": {
+        "tdee_adjustment": 500,
+        "protein_g_per_kg": 2.0,
+        "carbs_percentage": 0.50,
+        "fats_percentage": 0.25
+      },
+      "Weight Gain": {
+        "tdee_adjustment": 500,
+        "protein_g_per_kg": 2.0,
+        "carbs_percentage": 0.50,
+        "fats_percentage": 0.25
+      }
+}
+
+Request body:
+{
+  "weight": 70,
+  "height": 150,
+  "age": 19,
+  "gender": "male",
+  "activity_level": "sedentary",
+  "goal": "Maintenance"
+}
+
+Response body:
+{
+  "calories": 1857,
+  "protein": 112,
+  "carbs": 223.09,
+  "fats": 57.4
 }

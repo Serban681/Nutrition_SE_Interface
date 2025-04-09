@@ -9,6 +9,14 @@ export const Button = ({name, onClick, extraStyles} : {name: string, onClick?: (
     )
 }
 
+export const SmalllButton = ({name, onClick, extraStyles} : {name: string, onClick?: () => void, extraStyles?: string}) => {
+    return (
+        <button onClick={onClick} className={`${extraStyles} bg-red-light text-white py-1.5 px-3.5 font-semibold rounded-lg hover:scale-110 hover:cursor-pointer text-sm`}>
+            {name}
+        </button>
+    )
+}
+
 export const GoogleButton = ({name, onClick, extraStyles} : {name: string, onClick?: () => void, extraStyles?: string}) => {
     return (
         <button onClick={onClick} className={`${extraStyles} text-black py-1.5 px-4.5 font-semibold rounded-lg hover:scale-110 hover:cursor-pointer text-base flex items-center border-2`}>
