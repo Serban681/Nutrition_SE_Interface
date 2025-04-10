@@ -38,7 +38,7 @@ export const NutritionalRecommender = () => {
             {askedForInfo && 
                 <div className="mt-3">
                     <h1 className="text-xl font-bold mb-4">You should consume:</h1>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 gap-4">
                     <div className="bg-red-100 px-4 py-3 rounded-xl font-medium shadow text-center">
                         <span className="font-medium">Calories:</span>{" "}
                         <span className="font-bold">{Math.round(recommendations.calories)} kcal</span>
