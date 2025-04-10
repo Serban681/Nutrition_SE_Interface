@@ -110,9 +110,9 @@ export default function Login () {
         
                             <p className="mt-2 font-bold">or</p>
         
-                            <TextInput name="Email" value={email} onValueChange={value => setEmail(value)} />
+                            <TextInput extraStyles="w-full" name="Email" value={email} onValueChange={value => setEmail(value)} />
                             
-                            <TextInput extraStyles="mt-1" name="Password" value={password} onValueChange={value => setPassword(value)} typePassword={true} />            
+                            <TextInput extraStyles="mt-1 w-full" name="Password" value={password} onValueChange={value => setPassword(value)} typePassword={true} />            
                         </div>
                         <Button extraStyles="mt-3" name="Submit" onClick={loginOrRegisterWithEmailAndPassword}></Button>
                     </>

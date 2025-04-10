@@ -16,7 +16,7 @@ export const TextInput: React.FC<TextInputProps> = ({
     return (
         <div className={`${extraStyles} block`}>
             <label className="font-semibold">{name}:</label><br />
-            <input className="border-2 focus:outline-0 rounded-lg px-1" type={typePassword ? 'password' : 'text'} value={value} onChange={(e) => onValueChange(e.target.value)} />
+            <input className="border-2 w-full focus:outline-0 rounded-lg px-1" type={typePassword ? 'password' : 'text'} value={value} onChange={(e) => onValueChange(e.target.value)} />
         </div>
     )
 }
