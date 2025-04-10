@@ -11,7 +11,9 @@ import useGetUser from './hooks/useGetUser';
 function App() {
   let NO_OF_SERVICES = 2
 
-  const [service, setService] = useState(1)
+  const {user} = useGetUser()
+
+  const [service, setService] = useState(!!user ? 2 : 1)
 
   const nextService = () => {
     if(service == NO_OF_SERVICES)
