@@ -1,5 +1,4 @@
-import { useState } from "react"
-import { Button } from "./Button"
+import { useEffect, useState } from "react"
 import { NutritionalRecommendation } from "../models/NutritionalRecommendation"
 
 export const NutritionalRecommender = () => {    
@@ -13,6 +12,7 @@ export const NutritionalRecommender = () => {
     })
 
     const getRecommendations = () => {
+        console.log("Fetching recommendations...")
         fetch(import.meta.env.VITE_API_URL + '/calculate', {
             method: "POST",
             headers: {
@@ -29,17 +29,35 @@ export const NutritionalRecommender = () => {
         .catch(err => console.log(err))
     }
 
+    useEffect(() => {
+        getRecommendations()
+    }, [])
+
     return (
         <>
-            <Button name="Hit me with the facts!" onClick={() => getRecommendations()}></Button>
-
-            {askedForInfo && <div className="mt-3">
-                <h1 className="text-lg">You should consume:</h1>
-                <p>calories: <span className="font-bold">{Math.round(recommendations.calories)} kcal</span></p>
-                <p>protein: <span className="font-bold">{Math.round(recommendations.protein)}g</span></p>
-                <p>carbs: <span className="font-bold">{Math.round(recommendations.carbs)}g</span></p>
-                <p>fats: <span className="font-bold">{Math.round(recommendations.fats)}g</span></p>
-            </div>}
+            {askedForInfo && 
+                <div className="mt-3">
+                    <h1 className="text-xl font-bold mb-4">You should consume:</h1>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="bg-red-100 px-4 py-3 rounded-xl font-medium shadow text-center">
+                        <span className="font-medium">Calories:</span>{" "}
+                        <span className="font-bold">{Math.round(recommendations.calories)} kcal</span>
+                    </div>
+                    <div className="bg-blue-100 px-4 py-3 rounded-xl font-medium shadow text-center">
+                        <span className="font-medium">Protein:</span>{" "}
+                        <span className="font-bold">{Math.round(recommendations.protein)}g</span>
+                    </div>
+                    <div className="bg-yellow-100 px-4 py-3 rounded-xl font-medium shadow text-center">
+                        <span className="font-medium">Carbs:</span>{" "}
+                        <span className="font-bold">{Math.round(recommendations.carbs)}g</span>
+                    </div>
+                    <div className="bg-green-100 px-4 py-3 rounded-xl font-medium shadow text-center">
+                        <span className="font-medium">Fats:</span>{" "}
+                        <span className="font-bold">{Math.round(recommendations.fats)}g</span>
+                    </div>
+                    </div>
+                </div>
+            }
         </>
     )
 }

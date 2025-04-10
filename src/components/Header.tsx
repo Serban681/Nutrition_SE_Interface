@@ -23,17 +23,25 @@ const UserBtn = () => {
 
     const navigate = useNavigate();
 
+    if(!!!user) {
+        return (
+            <div>
+                <img onClick={() => navigate('/login')} src={account_icon} className="w-8 hover:cursor-pointer" />    
+            </div>
+        )
+    }
+
     return (
         <div>
-            { !!!user ?
-                <img onClick={() => navigate('/login')} src={account_icon} className="w-8 hover:cursor-pointer" />
+            {
+                !!user.photoURL ? 
+                    <img className='w-8 h-8 rounded-full hover:cursor-pointer' src={user.photoURL!}
+                        onClick={() => toggleIsOpen()}
+                    />
                 :
-                <img className='w-8 h-8 rounded-full hover:cursor-pointer' src={user.photoURL!}
-                    onClick={() => toggleIsOpen()}
-                />
-                // <div onClick={() => {
-                //     toggleIsOpen()
-                // }} className="w-8 h-8 rounded-full bg-green hover:cursor-pointer"></div>
+                <div onClick={() => {
+                    toggleIsOpen()
+                }} className="w-8 h-8 rounded-full bg-green hover:cursor-pointer"></div>
             }
         </div>
     )

@@ -1,16 +1,17 @@
 import './index.css'
 import { Header } from './components/Header';
 import { ImageApproximator } from './components/ImageApproximator';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import arrow_back from "./assets/arrow_back.svg"
 import arrow_forward from "./assets/arrow_forward.svg"
 import { NutritionalRecommender } from './components/NutritionalRecommender';
+import useGetUser from './hooks/useGetUser';
 
 function App() {
-  const NO_OF_SERVICES = 2
+  let NO_OF_SERVICES = 2
 
-  const [service, setService] = useState(2)
+  const [service, setService] = useState(1)
 
   const nextService = () => {
     if(service == NO_OF_SERVICES)

@@ -24,7 +24,7 @@ export const RadioInput: React.FC<SelectInputProps> = ({
                       value={valueName}
                       checked={value === valueName}
                       onChange={(e) => onValueChange(e.target.value)}
-                  />{valueName}<br/>
+                  /><span className="capitalize ml-1">{valueName}</span><br/>
                 </>
             ))}
         </div>
